@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_project_form_quality_review_inherit" model="ir.ui.view">
+        <field name="name">project.project.form.quality.review.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="quality_inspector_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_form_quality_review_inherit" model="ir.ui.view">
+        <field name="name">project.task.form.quality.review.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <button name="action_mark_review_passed"
+                        type="object"
+                        string="Mark Review Passed"
+                        class="btn-primary"
+                        invisible="is_done"/>
+                <button name="action_reset_review"
+                        type="object"
+                        string="Reset Review"
+                        class="btn-secondary"
+                        invisible="not is_done"/>
+            </xpath>
+
+            <xpath expr="//sheet" position="inside">
+                <group string="Quality Review">
+                    <field name="quality_inspector_id" readonly="1"/>
+                    <field name="is_done" readonly="1"/>
+                    <field name="quality_inspected_date" readonly="1"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
